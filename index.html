@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legacy Launcher | Minecraft LCE</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        :root {
+            --mc-green: #3C8527;
+            --mc-green-light: #72FF47;
+            --mc-green-dark: #224D16;
+            --mc-bg: #1A1A1A;
+            --mc-panel: #2D2D2D;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--mc-bg);
+            color: #E0E0E0;
+            background-image: radial-gradient(circle at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
+            min-height: 100vh;
+        }
+
+        .btn-mc {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #8B8B8B;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 4px solid #373737;
+            border-top-color: #FFFFFF;
+            border-left-color: #FFFFFF;
+            border-bottom-color: #555555;
+            border-right-color: #555555;
+            box-shadow: inset -2px -2px 0px rgba(0,0,0,0.25);
+            transition: all 0.1s;
+            cursor: pointer;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+        }
+
+        .btn-mc:hover:not(.disabled) {
+            background-color: #9E9E9E;
+        }
+
+        .btn-mc:active:not(.disabled) {
+            border-top-color: #555555;
+            border-left-color: #555555;
+            border-bottom-color: #FFFFFF;
+            border-right-color: #FFFFFF;
+            box-shadow: inset 2px 2px 0px rgba(0,0,0,0.25);
+            padding-top: 1.1rem;
+            padding-bottom: 0.9rem;
+        }
+
+        .btn-mc.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(1);
+            pointer-events: none;
+        }
+
+        .btn-mc-primary {
+            background-color: var(--mc-green);
+        }
+
+        .btn-mc-primary:hover:not(.disabled) {
+            background-color: #4CAF50;
+        }
+
+        .mc-panel {
+            background-color: #C6C6C6;
+            border: 4px solid #373737;
+            border-top-color: #FFFFFF;
+            border-left-color: #FFFFFF;
+            border-bottom-color: #555555;
+            border-right-color: #555555;
+            color: #1A1A1A;
+        }
+
+        .mc-panel-dark {
+            background-color: var(--mc-panel);
+            border: 4px solid #111111;
+            border-top-color: #555555;
+            border-left-color: #555555;
+            border-bottom-color: #111111;
+            border-right-color: #111111;
+            color: #E0E0E0;
+        }
+
+        @keyframes pulse-bg {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .loading-pulse {
+            animation: pulse-bg 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <nav class="w-full border-b-4 border-[#111111] bg-[#2D2D2D] p-4">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <h1 class="font-bold text-2xl tracking-tighter text-white drop-shadow-[2px_2px_0_rgba(0,0,0,1)]">Legacy Launcher</h1>
+            </div>
+            <div>
+                <a href="https://github.com/gradenGnostic/LegacyLauncher" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-stone-300 hover:text-white transition-colors font-semibold">
+                    <i class="ph-fill ph-github-logo text-2xl"></i>
+                    <span>View on GitHub</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex flex-col items-center justify-center p-6 mt-8 mb-12">
+        <div class="max-w-6xl w-full text-center space-y-8">
+
+            <div class="space-y-4">
+                <h2 class="font-bold text-5xl md:text-6xl lg:text-7xl text-white drop-shadow-[4px_4px_0_rgba(0,0,0,1)] leading-tight">
+                    The Ultimate <br>LCE Experience
+                </h2>
+                <p class="text-xl md:text-2xl text-stone-300 max-w-2xl mx-auto drop-shadow-md">
+                    A custom-built, authentic launcher for playing Minecraft Legacy Console Edition.
+                </p>
+            </div>
+
+            <div class="mc-panel-dark max-w-4xl mx-auto p-8 md:p-12 mt-10 shadow-2xl relative">
+                <div class="absolute top-2 left-2 w-2 h-2 bg-stone-800"></div>
+                <div class="absolute top-2 right-2 w-2 h-2 bg-stone-800"></div>
+                <div class="absolute bottom-2 left-2 w-2 h-2 bg-stone-800"></div>
+                <div class="absolute bottom-2 right-2 w-2 h-2 bg-stone-800"></div>
+
+                <div class="flex flex-col items-center space-y-8">
+                    <div id="version-container" class="bg-black/40 px-6 py-3 border-2 border-[#111] font-bold text-lg md:text-xl text-[#72FF47]">
+                        <span id="version-tag" class="loading-pulse">Fetching latest release...</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full pt-4">
+                        <a id="win-dl" href="https://github.com/gradenGnostic/LegacyLauncher/releases/download/v1.1.0/LegacyLauncher.Setup.1.1.0.exe" class="btn-mc btn-mc-primary flex flex-col gap-2 p-8 text-center w-full">
+                            <i class="ph-fill ph-windows-logo text-4xl mb-1"></i>
+                            <span class="text-lg">Windows</span>
+                            <span class="text-xs text-white/80 normal-case tracking-wide">Download .exe</span>
+                        </a>
+
+                        <a id="mac-dl" href="https://github.com/gradenGnostic/LegacyLauncher/releases/download/v1.1.0/LegacyLauncher-1.1.0-arm64.dmg" class="btn-mc flex flex-col gap-2 p-8 text-center w-full">
+                            <i class="ph-fill ph-apple-logo text-4xl mb-1"></i>
+                            <span class="text-lg">macOS</span>
+                            <span class="text-xs text-white/80 normal-case tracking-wide">Download .dmg</span>
+                        </a>
+
+                        <a id="linux-dl" href="https://github.com/gradenGnostic/LegacyLauncher/releases/download/v1.1.0/LegacyLauncher-1.1.0.AppImage" class="btn-mc flex flex-col gap-2 p-8 text-center w-full">
+                            <i class="ph-fill ph-linux-logo text-4xl mb-1"></i>
+                            <span class="text-lg">Linux</span>
+                            <span class="text-xs text-white/80 normal-case tracking-wide">Download .AppImage</span>
+                        </a>
+                    </div>
+
+                    <p class="text-sm text-stone-400 max-w-md pt-2">
+                        Just download the file for your operating system and run it to get started.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 text-left">
+                <div class="mc-panel-dark p-6 relative">
+                    <i class="ph ph-identification-card text-4xl text-[#72FF47] mb-4"></i>
+                    <h3 class="font-bold text-xl mb-3 text-white">Profile System</h3>
+                    <p class="text-stone-300 text-sm">Save your username and track your total journey with automated playtime counting and custom player profiles.</p>
+                </div>
+
+                <div class="mc-panel-dark p-6 relative">
+                    <i class="ph ph-cloud-arrow-down text-4xl text-[#72FF47] mb-4"></i>
+                    <h3 class="font-bold text-xl mb-3 text-white">Auto Updates</h3>
+                    <p class="text-stone-300 text-sm">Automatically fetches the latest LCE game releases directly from GitHub. Always stay up-to-date effortlessly.</p>
+                </div>
+
+                <div class="mc-panel-dark p-6 relative">
+                    <i class="ph ph-devices text-4xl text-[#72FF47] mb-4"></i>
+                    <h3 class="font-bold text-xl mb-3 text-white">Cross-Platform</h3>
+                    <p class="text-stone-300 text-sm">Seamless support for Windows, Linux, and macOS, utilizing compatibility layers to ensure a smooth experience.</p>
+                </div>
+            </div>
+
+            <div class="text-left mt-16 mc-panel p-8">
+                <h3 class="font-bold text-2xl mb-6 text-black">How to Play</h3>
+                <ol class="space-y-4 text-black/80 font-medium">
+                    <li class="flex gap-4">
+                        <span class="font-bold text-3xl text-stone-500">1</span>
+                        <p class="text-lg pt-1">Download the launcher for your operating system using the buttons above.</p>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="font-bold text-3xl text-stone-500">2</span>
+                        <p class="text-lg pt-1">Run the application. (Linux/Mac users: you may need to grant execute permissions or bypass security settings for unidentified developers).</p>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="font-bold text-3xl text-stone-500">3</span>
+                        <p class="text-lg pt-1">Configure your profile, connect to a server IP (optional), and hit Launch!</p>
+                    </li>
+                </ol>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="w-full bg-[#1A1A1A] border-t-4 border-[#111111] py-8 mt-auto text-center">
+        <p class="text-stone-500 text-sm font-medium mb-2">
+            Open Source Project by <a href="https://github.com/gradenGnostic" target="_blank" class="text-stone-300 hover:text-white underline decoration-stone-500">gradenGnostic</a>.
+        </p>
+        <p class="text-stone-600 text-xs max-w-xl mx-auto px-4">
+            Not affiliated with Mojang AB or Microsoft. "Minecraft" is a trademark of Mojang Synergies AB.
+            This launcher is built for the community, by the community.
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const REPO = 'gradenGnostic/LegacyLauncher';
+            const versionTag = document.getElementById('version-tag');
+            const winDl = document.getElementById('win-dl');
+            const macDl = document.getElementById('mac-dl');
+            const linuxDl = document.getElementById('linux-dl');
+
+            async function fetchLatestRelease() {
+                try {
+                    const response = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`);
+
+                    if (!response.ok) {
+                        throw new Error('Release not found');
+                    }
+
+                    const data = await response.json();
+
+                    versionTag.classList.remove('loading-pulse');
+                    versionTag.textContent = `Latest Release: ${data.tag_name}`;
+                    versionTag.style.color = '#72FF47';
+
+                    if (data.assets && data.assets.length > 0) {
+                        const winAsset = data.assets.find(a => a.name.endsWith('.exe') || a.name.endsWith('.msi'));
+                        const macAsset = data.assets.find(a => a.name.endsWith('.dmg') || a.name.endsWith('.pkg') || (a.name.toLowerCase().includes('mac') && a.name.endsWith('.zip')));
+                        const linuxAsset = data.assets.find(a => a.name.endsWith('.AppImage') || a.name.endsWith('.deb') || a.name.endsWith('.rpm'));
+
+                        if (winAsset) {
+                            winDl.href = winAsset.browser_download_url;
+                            winDl.setAttribute('download', winAsset.name);
+                        }
+                        if (macAsset) {
+                            macDl.href = macAsset.browser_download_url;
+                            macDl.setAttribute('download', macAsset.name);
+                        }
+                        if (linuxAsset) {
+                            linuxDl.href = linuxAsset.browser_download_url;
+                            linuxDl.setAttribute('download', linuxAsset.name);
+                        }
+                    }
+
+                } catch (error) {
+                    console.error('Fetch error:', error);
+                    versionTag.classList.remove('loading-pulse');
+                    versionTag.textContent = 'View Latest on GitHub';
+                    versionTag.style.color = '#FF5555';
+                }
+            }
+
+            fetchLatestRelease();
+        });
+    </script>
+</body>
+</html>
